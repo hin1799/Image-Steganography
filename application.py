@@ -12,7 +12,7 @@ def encode_img_frame1(F):
     F.destroy()
     F1 = Frame(root)
     label1 = Label(F1,text="Select image in which you want to hide text:")
-    label1.config(font=('Times New Roman',16,'bold'),bg='#f0f0f0')
+    label1.config(font=('Times New Roman',16,'bold'),bg='#f0f0f0',fg='#153462')
     label1.grid()
 
     btn_select = Button(F1, text="Choose Image", command=lambda: encode_img_frame2(F1))
@@ -79,7 +79,9 @@ def encoding(text, img):
         encode_text(new_img,data)
         new_file = BytesIO()
         temp=os.path.splitext(os.path.basename(img.filename))[0]
-        new_img.save(tkinter.filedialog.asksaveasfilename(initialfile=temp,filetypes=([('png','*.png')]), defaultextension=".png"))
+        new_img.save(tkinter.filedialog.asksaveasfilename(
+            initialfile=temp,filetypes=([('png','*.png')]), 
+            defaultextension=".png"))
 
         global d_img_size, d_img_width, d_img_height
         d_img_size = new_file.tell()
@@ -121,7 +123,7 @@ def modify_pixels(pix, data):
             if(data_list[i][j] == '0') and (pix[j]%2 != 0):
                 pix[j] -= 1
             
-            elif(data_list[i][j] == 1) and (pix[j]%2 == 0):
+            elif(data_list[i][j] == '1') and (pix[j]%2 == 0):
                 pix[j] -= 1
         
         if(i == data_len - 1):
@@ -219,7 +221,7 @@ def decode(image):
 def main_frame(root):
     root.title('Image Steganography')
     root.geometry('500x600')
-    root.resizable(width=False, height=False)
+    root.resizable(width=False, height=True)
     root.config(bg='#f0f0f0')
     frame = Frame(root)
     frame.grid()
